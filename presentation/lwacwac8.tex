@@ -43,6 +43,7 @@ Damon Berridge}
 % -----------------------------------------------------------------------------------------
 %  About longitudinal sampling---why do it?
 \section{Rationale}
+\subsection{Rationale}
 \frame{\frametitle{About}
 \begin{itemize}
     \item Monitor corpora are typically the go-to resosrce for temporal data
@@ -87,6 +88,7 @@ Damon Berridge}
 %  What longitudinal sampling is "all about", i.e. what properties it should have,
 %  and the design principles for LWAC
 \section{Design}
+\subsection{Design}
 
 \frame{\frametitle{Sample Design 2}
 \begin{itemize}
@@ -141,41 +143,69 @@ Damon Berridge}
 % -----------------------------------------------------------------------------------------
 %  About the form LWAC takes
 \section{Implementation}
+\subsection{Implementation}
 
 \frame{\frametitle{Overview}
-\begin{itemize}
-    \item UNIX-model tool set (cross-platform?)
-    \item Written in Ruby using cURL
-    \item Distributed client-cerver design
-\end{itemize}    
+    \begin{itemize}
+        \item UNIX-model tool set (cross-platform?)
+        \item Written in Ruby using cURL
+        \item Distributed client-cerver design
+    \end{itemize}    
 
-\begin{center}
-    \includegraphics[scale=0.8]{arch.eps}
-\end{center}
+    \begin{center}
+        \includegraphics[scale=0.8]{arch.eps}
+    \end{center}
+
+
+    \note{\begin{itemize}
+            \item 
+    \end{itemize}}
+
+}
+
+
+\subsection{Workflow}
+\frame{\frametitle{Basic Workflow}
+  \begin{columns}
+    \begin{column}{.7\linewidth}
+        \begin{enumerate}
+            \item Find links of interest ([Web]BootCaT)
+            \item Import links (\texttt{lwac import})
+            \item Set up clients (\texttt{lwac client})
+            \item Run server (\texttt{lwac server})
+            \item Drink coffee (RFC 2324)
+            \item Export data (\texttt{lwac export})
+            \item Do science
+        \end{enumerate}    
+    \end{column}
+    \begin{column}{.25\linewidth}
+        \includegraphics[scale=0.1]{coffee.jpg}
+    \end{column}
+  \end{columns}
+
 
 
 \note{\begin{itemize}
-    \item 
+    \item Step through workflow
+    \item You may wish to use a process monitor on the client and server
+    \item You can export before the server is done (and even delete old samples from the disk)
+    \item RFC2324 is HTCPCP: the Hyper Text Coffee Pot Control Protocol
 \end{itemize}}
-
 }
 
 
-\frame{\frametitle{Tools}
-\begin{itemize}
-    \item \textbf{Import}---Imports links into the database
-    \item \textbf{Server}---Controls sampling policy and data storage
-    \item \textbf{Client}---Makes requests to the web, normalises data
-    \item \textbf{Export}---Extracts metadata and text from the server's corpus directory
-\end{itemize}    
-
-
-
-\note{\begin{itemize}
-    \item Go through these, p'raps?
-\end{itemize}}
-
-}
+% \frame{\frametitle{Tools}
+%     \begin{itemize}
+%         \item \textbf{Import}---Imports links into the database
+%         \item \textbf{Server}---Controls sampling policy and data storage
+%         \item \textbf{Client}---Makes requests to the web, normalises data
+%         \item \textbf{Export}---Extracts metadata and text from the server's corpus directory
+%     \end{itemize}    
+% 
+%     \note{\begin{itemize}
+%             \item Go through these, p'raps?
+%     \end{itemize}}
+% }
 
 
 
@@ -234,7 +264,9 @@ Damon Berridge}
 }
 
 
-\subsection{Performance}
+% -----------------------------------------------------------------------------------------
+\section{Performance}
+\section{Throughput}
 \frame{\frametitle{Performance}
 % TODO
 \begin{itemize}
@@ -268,47 +300,19 @@ Damon Berridge}
 % -----------------------------------------------------------------------------------------
 %  A rough overview of use
 %  possibly a demo?
-\section{Use}
+\section{<Something>}
 
-\frame{\frametitle{Basic Workflow}
-  \begin{columns}
-    \begin{column}{.7\linewidth}
-        \begin{enumerate}
-            \item Find links of interest ([Web]BootCaT)
-            \item Import links (\texttt{lwac import})
-            \item Set up clients (\texttt{lwac client})
-            \item Run server (\texttt{lwac server})
-            \item Drink coffee (RFC 2324)
-            \item Export data (\texttt{lwac export})
-            \item Do science
-        \end{enumerate}    
-    \end{column}
-    \begin{column}{.25\linewidth}
-        \includegraphics[scale=0.1]{coffee.jpg}
-    \end{column}
-  \end{columns}
-
-
-
-\note{\begin{itemize}
-    \item Step through workflow
-    \item You may wish to use a process monitor on the client and server
-    \item You can export before the server is done (and even delete old samples from the disk)
-    \item RFC2324 is HTCPCP: the Hyper Text Coffee Pot Control Protocol
-\end{itemize}}
-}
-
-
-\frame{\frametitle{Use Cases}
-\begin{itemize}
-    \item 
-    \item 
-    \item 
-    \item 
-    \item 
-\end{itemize}    
-}
-
+% 
+% \frame{\frametitle{Use Cases}
+% \begin{itemize}
+%     \item 
+%     \item 
+%     \item 
+%     \item 
+%     \item 
+% \end{itemize}    
+% }
+% 
 
 
 \frame{\frametitle{Etiquette}
