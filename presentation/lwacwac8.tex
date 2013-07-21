@@ -11,7 +11,7 @@
 % \usetheme[]{SmartSerif}
 % 
 
-\usetheme[num]{SmartSerif}
+\usetheme[draft,nocurve,num]{SmartSerif}
 
 
 % -----------------------------------------------------------------------------------------
@@ -31,13 +31,13 @@
 Paul Rayson,\
 Damon Berridge}
 \institute[2013]{Lancaster University}
-\date{\tiny \today}
+\date{\tiny July 22, 2013}
 
 \begin{document}
 
 \maketitle
 
-\section[Outline]{}
+% \section[Outline]{}
 \frame{\tableofcontents}
 
 % =========================================================================================
@@ -63,11 +63,7 @@ Damon Berridge}
         \item Feed corpora
     \end{itemize}  
 
-    \note{\begin{itemize}
-            \item
-    \end{itemize}}
 }
-
 
 
 
@@ -78,7 +74,7 @@ Damon Berridge}
         \item Irregular visits to pages \\
             {\small ``...visiting each website again in the next crawl anticipating for new content is cost-inefficient.''}
         \vspace{10pt}
-        \item Manual supervisision required
+        \item Manual supervision required
         \vspace{10pt}
         \item Lack of detail on network properties
         \vspace{10pt}
@@ -93,7 +89,7 @@ Damon Berridge}
 
 
 
-\frame{\frametitle{Solutions}
+\frame{\frametitle{Wish List}
     \begin{itemize}
         \item Reliable, regular sampling strategy
         \vspace{10pt}
@@ -114,13 +110,26 @@ Damon Berridge}
 
 % ----------------------------------------------------------------------------
 \subsection{Sample Design}
+
+
 \frame{\frametitle{Cohort Sampling}
     \begin{itemize}
-        \item Explain the confusing graph:
-    \end{itemize}    
+        \item Common longitudinal design
+    \vspace{10pt}
+        \item Used elsewhere to disambiguate long- from short-term effects
+            % BHPS, other national longitudinal studies
+    \vspace{10pt}
+        \item Fits with open-source, URL-based corpus model
+    \vspace{10pt}
+\end{itemize}
+}
 
+
+\frame{\frametitle{Cohort Sampling}
     \begin{center}
-        \includegraphics{samples.eps}
+        \includegraphics<1>{samples.eps}
+        \includegraphics<2>{samples_crawl.eps}
+        \includegraphics<3>{samples_cohort.eps}
     \end{center}
 
 
@@ -129,15 +138,27 @@ Damon Berridge}
             \item Mention the horizontal/vertical constraints being rigorous and reliable
     \end{itemize}}
 }
+    %     \item Exposes technical and linguistic change over time
+    % \end{itemize}    
 
 
-\frame{\frametitle{Cohort Sampling}
+\frame{\frametitle{Uses}
+    Observing network properties over time:
+    \vspace{10pt}
     \begin{itemize}
-        \item Common longitudinal design
-        \item Fits with open-source, URI-based corpus model
-        \item Used elsewhere to disambiguate long- from short-term effects
-            % BHPS, other national longitudinal studies
-        \item Exposes technical and linguistic change over time
+        \item Link rot/document attrition
+        \item Latency
+        \item Server properties, headers, protocol support
+    \end{itemize}    
+    
+    \vspace{10pt}
+    
+    Observing user's experience of common websites/links:
+    \vspace{10pt}
+    \begin{itemize}
+        \item Editorial policy
+        \item Page revisions
+        \item ``live'' page content
     \end{itemize}    
 }
 
@@ -171,15 +192,17 @@ Damon Berridge}
 
 \frame{\frametitle{Data}
     \begin{itemize}
-        \item Each sample is temporally homogenous
-        \vspace{5pt}
-        \item Vertical and Horizontal comparability of samples
+        % \item Each sample is temporally homogenous
+        % \vspace{5pt}
+        \item Vertical and horizontal comparability of samples
         \vspace{5pt}
         \item Configuration, network properties and data recorded for later use
         \vspace{5pt}
         \item `No data left behind' policy: $\approx 120$ variables stored on each request
         \vspace{5pt}
-        \item Format, size filters to exclude unwanted types
+        \item Format, size filters to exclude unwanted data
+        \vspace{5pt}
+        \item Charset normalisation
     \end{itemize}  
 
     % \note{\begin{itemize}
@@ -198,11 +221,25 @@ Damon Berridge}
 % }
 % 
 
+\frame{\frametitle{Import/Export}
+\begin{itemize}
+    \item Import URL lists
+        \vspace{10pt}
+    \item Export to CSV, XML or arbitrary templates
+        \vspace{10pt}
+    \item Export using filters and data normalisation scripts
+        \vspace{10pt}
+    \item Live export supported
+\end{itemize}    
+}
 
 
-\frame{\frametitle{Download Model}
+
+
+\frame{\frametitle{User Model}
 
     LWAC can imitate real users or crawlers:
+    \vspace{10pt}
     \begin{itemize}
         \item Realistic redirect handling
         \vspace{10pt}
@@ -228,7 +265,7 @@ Damon Berridge}
         \vspace{10pt}
         \item Data security across crashes/restarts (atomicity)
         \vspace{10pt}
-        \item Error reporting
+        \item Error reporting, detailed logging
         \vspace{10pt}
         \item Stability for long-term runs
     \end{itemize}  
@@ -243,7 +280,7 @@ Damon Berridge}
 
 % -----------------------------------------------------------------------------------------
 %  About the form LWAC takes
-\section{Implementation}
+% \section{Implementation}
 \subsection{Implementation}
 
 \frame{\frametitle{Overview}
@@ -253,19 +290,17 @@ Damon Berridge}
         \item Written in Ruby using cURL
             \vspace{10pt}
         \item Distributed client-server design
+            \vspace{10pt}
+        \item Central control of sampling policy
     \end{itemize}    
     \vspace{10pt}
 
 
-    % Arch pic
-    \begin{center}
-        \includegraphics{arch.eps}
-    \end{center}
-
-
-    \note{\begin{itemize}
-            \item 
-    \end{itemize}}
+ 
+    \begin{figure}
+        \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{arch.eps}}%
+        \label{fig:dates}
+    \end{figure}
 
 }
 
@@ -276,17 +311,11 @@ Damon Berridge}
             \begin{column}{.7\linewidth}
             \begin{enumerate}
                 \item<1-> Find links of interest ([Web]BootCaT)
-                \vspace{5pt}
                 \item<2-> Import links (\texttt{lwac import})
-                \vspace{5pt}
                 \item<3-> Set up clients (\texttt{lwac client})
-                \vspace{5pt}
                 \item<4-> Run server (\texttt{lwac server})
-                \vspace{5pt}
                 \item<5-> Drink coffee (RFC 2324)
-                \vspace{5pt}
                 \item<6-> Export data (\texttt{lwac export})
-                \vspace{5pt}
                 \item<7-> Do science
             \end{enumerate}    
             \end{column}
@@ -295,6 +324,19 @@ Damon Berridge}
             \end{column}
       \end{columns}
 
+    
+    
+     
+     \begin{figure}
+         \includegraphics[width=\textwidth]<1>{arch.eps}
+         \includegraphics[width=\textwidth]<2>{arch_import.eps}
+         \includegraphics[width=\textwidth]<3>{arch_client.eps}
+         \includegraphics[width=\textwidth]<4>{arch_server.eps}
+         \includegraphics[width=\textwidth]<5>{arch_sample.eps}
+         \includegraphics[width=\textwidth]<6>{arch_import.eps}
+         \includegraphics[width=\textwidth]<7->{arch.eps}
+         \label{fig:dates}
+     \end{figure}
 
 
     \note{\begin{itemize}
@@ -321,47 +363,36 @@ Damon Berridge}
 
 
 
-
-
-\frame{\frametitle{Server}
-\begin{itemize}
-    \item Manages link cohort
-        \vspace{5pt}
-    \item Ensures atomic data access
-        \vspace{5pt}
-    \item Controls sampling policy centrally
-        \vspace{5pt}
-    \item Normalises data format (character encoding, headers)
-        \vspace{5pt}
-    \item Logs everything in obscene detail
-\end{itemize}
-}
-
-\frame{\frametitle{Client}
-\begin{itemize}
-    \item Highly parallel downloads (using cURL)
-        \vspace{10pt}
-    \item Able to normalise character set, respond to redirects
-        \vspace{10pt}
-    \item Configured by server on-the-fly
-        \vspace{10pt}
-    \item Able to run on low powered machines such as VMs
-\end{itemize}    
-}
-
-
-
-\frame{\frametitle{Import/Export}
-\begin{itemize}
-    \item Import URL lists
-        \vspace{10pt}
-    \item Export to CSV, XML or arbitrary templates
-        \vspace{10pt}
-    \item Export using filters and data normalisation
-        \vspace{10pt}
-    \item Live export supported
-\end{itemize}    
-}
+% 
+% 
+% \frame{\frametitle{Server}
+% \begin{itemize}
+%     \item Waits for clients to connect 
+%         \vspace{5pt}
+%     \item Manages all data
+%         \vspace{5pt}
+%     \item Ensures atomic data access
+%         \vspace{5pt}
+%     \item Controls sampling policy centrally
+%         \vspace{5pt}
+%     \item Logs everything in obscene detail
+% \end{itemize}
+% }
+% 
+% \frame{\frametitle{Client}
+% \begin{itemize}
+%     \item Receives batches of work from servers
+%         \vspace{10pt}
+%     \item Highly parallel downloads (using cURL)
+%         \vspace{10pt}
+%     \item Able to normalise character set, respond to redirects
+%         \vspace{10pt}
+%     \item Configured by server on-the-fly
+%         \vspace{10pt}
+%     \item Able to run on low powered machines such as VMs
+% \end{itemize}    
+% }
+% 
 
 
 
@@ -369,7 +400,7 @@ Damon Berridge}
 
 
 % =========================================================================================
-\section{Performance}
+\section{Performance \& Limits}
 \subsection*{Performance}
 \frame{\frametitle{Performance}
 Dependent on:
@@ -379,9 +410,9 @@ Dependent on:
     \vspace{10pt}
     \item Number of connections per client
     \vspace{10pt}
-    \item Latency of DNS servers
+    \item Client-server network speeds
     \vspace{10pt}
-    \item Latency/speed of resultant servers
+    \item Latency/speed of DNS, web servers
 \end{itemize}    
 }
 
@@ -391,15 +422,14 @@ Dependent on:
 % -----------------------------------------------------------------------------------------
 \subsection{Throughput}
 
-\frame{\frametitle{Throughput (1 worker)}
+\frame{\frametitle{Throughput (1 client)}
     \includegraphics[width=\textwidth]{parallelrate}
 }
 
 
 
-\frame{\frametitle{Throughput (n workers)}
-% TODO
-    \includegraphics[width=\textwidth]{missing}
+\frame{\frametitle{Throughput (n clients)}
+    \includegraphics[width=\textwidth]{clientrate}
 }
 
 
@@ -407,37 +437,56 @@ Dependent on:
 Corpus:
 \begin{itemize}
     \item BootCaT-derived URL List
-    \item 228,000 URLs: 5000 requests, 50 links/call
+    \item 228k URLs: 4600 requests, 50 links/call
 \end{itemize}    
+    \vspace{10pt}
 
 System:
 \begin{itemize}
-    \item 3 clients, 400 parallel downloads each (~300k links/hour)
+    \item 3 clients, 400 connections/client
 \end{itemize}    
 
-Throughput
-\begin{itemize}
-    \item 14.9GB in 45 minutes (5.6MBps, 300,000 links/hour)
     \vspace{10pt}
-    \item 
-\end{itemize}    
+Throughput:
+\begin{itemize}
+    \item 14.9GB in 45 minutes (5.6MBps, 300k links/hour)
+    \item $\approx$ 588 million words after cleaning
+\end{itemize} 
 }
 % I Server [13-07-20 20:33:27] *** Closing sample <Sample 0, 228287/228287 [closed, complete]>
 % I Server [13-07-20 20:33:27] Sample duration: 2717s, size: 14977.11MB
 
-
+% 423055
 
 
 
 \frame{\frametitle{Throughput (real-world)}
-% TODO
-    \includegraphics[width=\textwidth]{missing}
+    \includegraphics[width=\textwidth]{realrate400}
 }
 
+%  XXX : Possibly include me if you need another slide
+% \frame{\frametitle{Throughput (real-world)}
+%     \includegraphics[width=\textwidth]{realrateboth}
+% }
 
 \frame{\frametitle{Download Times (Corpora)}
-% TODO
-    \includegraphics[width=\textwidth]{missing}
+Using my 3-client deployment:
+    \vspace{10pt}
+\begin{itemize}
+    \item BE06: a few seconds
+    \vspace{10pt}
+    \item BNC: 8 minutes
+    \vspace{10pt}
+    \item ukWaC: 2.5 hours (or 17 hours before filtering)
+        % n of tokens 1,914,150,197
+        % URLs: 6,528 
+        % raw crawl size: 351 GB
+        % n of documents after filtering: 5.69 M
+    \vspace{10pt}
+        \item DECOW2012: 12 hours (words); 24 hours (documents)
+            % 9 billion words
+            % 7.63 million documents
+\end{itemize} 
 }
 
 
@@ -454,8 +503,8 @@ Throughput
 
 
 
-\subsection{Resource Usage}
-\frame{\frametitle{Resource Use}
+\subsection{Resources/Scalability}
+\frame{\frametitle{Resources/Scalability}
     \begin{itemize}
         \item Memory usage $O(1)$ for client and server
         \vspace{5pt}
@@ -519,15 +568,15 @@ Throughput
         \item Between-sample rate defined by sample period
     \end{itemize}    
 
-
-    \note{\begin{itemize}
-            \item Not NETiquette.  God I hate that term.
-            \item Parallelism is a more helpful way to limit hits to servers
-            \item It's a bad idea for the quality of data to slow down each sample
-            \item Nothing can be done about between-sample time, it's defined by your experimental design
-    \end{itemize}}
+    % \note{\begin{itemize}
+    %         \item Not NETiquette.  God I hate that term.
+    %         \item Parallelism is a more helpful way to limit hits to servers
+    %         \item It's a bad idea for the quality of data to slow down each sample
+    %         \item Nothing can be done about between-sample time, it's defined by your experimental design
+    % \end{itemize}}
 
 }
+
 
 
 
